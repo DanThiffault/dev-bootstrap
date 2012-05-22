@@ -1,5 +1,6 @@
 package("zsh")
-package("vim")
+package("exuberant-ctags")
+package("vim-nox")
 package("tmux")
 
 git "/home/ubuntu/dotfiles" do
