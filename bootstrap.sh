@@ -31,11 +31,11 @@ sudo gem install chef ruby-shadow --no-ri --no-rdoc
 
 # Setup S3 vars
 echo "S3_KEY: "
-read -e S3_KEY
+read S3_KEY
 export S3_KEY=$S3_KEY
 
 echo "S3_SECRET: "
-read -e S3_SECRET
+read S3_SECRET
 export S3_SECRET=$S3_SECRET
 
 # Run Chef 
@@ -43,6 +43,6 @@ cd ~/dev-bootstrap
 sudo chef-solo -c solo.rb -j solo.json
 
 # Switch shell
-chsh -s /usr/bin/zsh ubuntu
+sudo chsh -s /usr/bin/zsh ubuntu
 
 
