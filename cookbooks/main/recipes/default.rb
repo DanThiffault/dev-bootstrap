@@ -23,12 +23,12 @@ execute "copy over dot files" do
 end
   
 template "/home/ubuntu/.zsh_secret" do
+  user "ubuntu"
+  group "ubuntu"
   source "zsh_secret.erb"
 end
 
 execute "pull dev bucket" do
-  user "ubuntu"
-  group "ubuntu"
   command "s3cmd s3://119labs-dev-ap ~/development"
   action :run
 end
