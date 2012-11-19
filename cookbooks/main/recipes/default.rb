@@ -1,10 +1,31 @@
 package("zsh")
 package("exuberant-ctags")
-package("vim-nox")
 package("tmux")
 package("ncurses-term")
 package("ec2-api-tools")
 package("s3cmd")
+
+# install mercurial, for fetching the vim source
+package "mercurial"
+
+# dependency for vim
+package "libncurses5-dev"
+
+# need to compile vim from scratch in order to support ruby interpreter
+script "install vim from source with ruby and multibyte support" do
+  interpreter "zsh"
+  user "root"
+  cwd "/usr/src"
+  not_if "vim --version | grep +ruby"
+  code <<-EOH
+  hg clone https://vim.googlecode.com/hg/ vim
+  cd vim
+  ./configure --enable-rubyinterp --enable-multibyte --enable_pythoninterp --enable_perlinterp
+  make
+  cd src
+  make install
+  EOH
+end
 
 git "/home/ubuntu/dotfiles" do
   user "ubuntu"
@@ -41,6 +62,14 @@ directory "/home/ubuntu/development" do
 end                                                                                                                                                                                                                 
 
 execute "pull dev bucket" do                                                                                                                                                                                        
+  user "ubuntu"                                                                                                                                                                                                     
+  group "ubuntu"                                                                                                                                                                                                    
   command "s3cmd sync s3://119labs-dev-ap /home/ubuntu/development"                                                                                                                                                 
   action :run                                                                                                                                                                                                       
 end   
+
+# cd ~/.vim/ruby/command-t
+# ruby extconf.rb 
+# make clean
+# make
+# sudo make install
