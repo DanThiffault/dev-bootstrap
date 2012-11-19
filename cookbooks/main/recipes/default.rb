@@ -31,4 +31,5 @@ end
 execute "pull dev bucket" do
   command "s3cmd s3://119labs-dev-ap ~/development"
   action :run
+  environment {:S3_KEY=>node['dev-boostrap']['s3_key'],:S3_SECRET=>node['dev-boostrap']['s3_secret']}
 end

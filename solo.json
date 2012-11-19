@@ -1,7 +1,11 @@
 {
-  "name": "dan-dev",
+  "name": "dev-bootstrap",
   "run_list": [
     "main"
-  ]
-}
+    ],
+    "dev-bootstrap": {
+      "s3_key": "",
+      "s3_secret": "",
+    }
+  }
 
