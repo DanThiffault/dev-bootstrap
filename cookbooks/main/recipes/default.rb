@@ -20,7 +20,7 @@ script "install vim from source with ruby and multibyte support" do
   code <<-EOH
   hg clone https://vim.googlecode.com/hg/ vim
   cd vim
-  ./configure --enable-rubyinterp --enable-multibyte --enable_pythoninterp --enable_perlinterp
+  ./configure --enable-rubyinterp --enable-multibyte --enable-pythoninterp --enable-perlinterp
   make
   cd src
   make install
