@@ -21,15 +21,26 @@ execute "copy over dot files" do
   command "rsync --exclude \".git/\" --exclude \".DS_Store\" --exclude \"bootstrap.sh\" --exclude \"README.md\" -av /home/ubuntu/dotfiles/ /home/ubuntu" 
   action :run
 end
-  
+
 template "/home/ubuntu/.zsh_secret" do
   user "ubuntu"
   group "ubuntu"
   source "zsh_secret.erb"
 end
 
-execute "pull dev bucket" do
-  command "s3cmd s3://119labs-dev-ap ~/development"
-  action :run
-  environment {:S3_KEY=>node['dev-boostrap']['s3_key'],:S3_SECRET=>node['dev-boostrap']['s3_secret']}
+template "/home/ubuntu/.s3cfg" do
+  user "ubuntu"
+  group "ubuntu"
+  source "s3cfg.erb"
 end
+
+directory "/home/ubuntu/development" do                                                                                                                                                                             
+  user "ubuntu"                                                                                                                                                                                                     
+  group "ubuntu"                                                                                                                                                                                                    
+  action :create                                                                                                                                                                                                    
+end                                                                                                                                                                                                                 
+
+execute "pull dev bucket" do                                                                                                                                                                                        
+  command "s3cmd sync s3://119labs-dev-ap /home/ubuntu/development"                                                                                                                                                 
+  action :run                                                                                                                                                                                                       
+end   

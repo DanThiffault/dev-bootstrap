@@ -28,16 +28,6 @@ sudo make install
 # Install the gems needed for chef
 sudo gem install chef ruby-shadow --no-ri --no-rdoc
 
-
-# Setup S3 vars
-echo "S3_KEY: "
-read S3_KEY
-export S3_KEY=$S3_KEY
-
-echo "S3_SECRET: "
-read S3_SECRET
-export S3_SECRET=$S3_SECRET
-
 # Run Chef 
 cd ~/dev-bootstrap
 sudo chef-solo -c solo.rb -j solo.json
