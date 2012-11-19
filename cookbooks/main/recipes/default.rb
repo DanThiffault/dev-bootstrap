@@ -68,8 +68,16 @@ execute "pull dev bucket" do
   action :run                                                                                                                                                                                                       
 end   
 
-# cd ~/.vim/ruby/command-t
-# ruby extconf.rb 
-# make clean
-# make
-# sudo make install
+script "compile command-t for vim" do
+  interpreter "zsh"
+  user "root"
+  cwd "/home/ubuntu/.vim/ruby/command-t"
+  code <<-EOH
+  ruby extconf.rb
+  make clean
+  make
+  make install
+  chown -R ubuntu:ubuntu /home/ubuntu/.vim
+  EOH
+end
+
